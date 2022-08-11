@@ -1,0 +1,24 @@
+@import "../constants/breakpoints";
+
+@mixin respond-to($media) {
+  @if($media == large) {
+    @media screen and (max-width: $large) {
+      @content;
+    }
+  }  @else if($media == middle) {
+    @media screen and (max-width: $middle){
+      @content;
+    }
+  } @else if($media == mobile) {
+    @media screen and (max-width: $mobile){
+      @content;
+    }
+  }
+}
+
+//$maxWidth: 1280;
+//@mixin adaptive-width($pcWidth, $mobWidth) {
+//  $addWidth: $pcWidth - $mobWidth;
+//  $maxWidth: $maxWidth - 320;
+//  font: calc(#{$mobWidth + px} + #{$addWidth} * ((100vw - 320px) / #{$maxWidth}));
+//}
