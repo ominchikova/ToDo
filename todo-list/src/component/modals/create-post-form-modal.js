@@ -1,6 +1,8 @@
 import {Component} from "../../core/component.js";
 import {Form} from "../../core/form.js";
 import {Validator} from "../../core/validators.js";
+import {Storage} from "../../core/storage.js";
+import {pageApplication} from "../../main.js";
 
 export class CreatePostFormModal extends Component {
     constructor(id) {
@@ -36,7 +38,9 @@ function onSubmitPostHandler(e) {
             ...this.formData.value(),
             status:'processing'
         }
-        console.log('Дело нужно записать куда-то')
+
+        Storage.createPost(formData)
         this.hide()
+        pageApplication.show()
     }
 }

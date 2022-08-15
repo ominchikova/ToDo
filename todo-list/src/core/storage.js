@@ -31,6 +31,28 @@ export class Storage {
            return user.id
         }
     }
+    static createPost (postData){
+       const users = JSON.parse(localStorage.getItem('users'))
+        const currentUser = findUserData()
+        if(!currentUser) return;
+        const updateTodosArray = [...currentUser.todoList,postData]
+        const updateUser = {
+            ...currentUser,
+            todoList: [...currentUser.todoList,postData]
+        }
+        const indexCurrentUser = users.findIndex(user=> userId === currentUser.id)
+    const updateUserArray = [...users.slice(0,indexCurrentUser), updateUser,...users.slice(indexCurrentUser +1)]
+        localStorage.setItem('users', JSON.stringify(updateUserArray))
+        notification.show('Post created')
+    }
+    static getUserData(){
+        return findUserData()
+    }
+    static getTodoInfo(todoId){
+        const currentUser = findUserData()
+        return currentUser.todoList.find(todo=>todo.id == todoId)
+    }
+
 }
 
 function checkUserExist(newUserData){
@@ -44,4 +66,10 @@ function checkUserExist(newUserData){
       }
     })
     return isUser
+}
+function findUserData() {
+    const userId = JSON.parse(localStorage.getItem('selectedUserId'))
+      if (!userId) return
+    const users =  JSON.parse(localStorage.getItem('users'))
+    return users.find(user =>user.id === userId)
 }
